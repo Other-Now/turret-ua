@@ -1,0 +1,15 @@
+turret-cli bob listening on 127.0.0.1:5071
+[     9 ms] register ok (200)
+[  1187 ms] call 1 Ringing      incoming
+[  1493 ms] call 1 Connected    answered
+{
+  "user": "bob",
+  "calls_out": 0, "calls_in": 1, "connected": 1, "terminated": 0,
+  "illegal_transitions": 0,
+  "sent_491": 0, "got_491": 0, "sent_481": 0, "glare_retries": 0, "cancel_lost_race": 0, "transfers_done": 0, "auth_retries": 1,
+  "ok_retransmits": 0, "ack_resends": 0,
+  "sip_sent": 5, "sip_retransmits": 0, "sip_absorbed": 0, "sip_parse_errors": 0, "sip_timeouts": 0,
+  "calls": [
+    {"id": 1, "state": "Connected", "rtp": {"sent": 526, "received": 504, "lost": 100, "jitter_ms": 0.883755, "max_jitter_ms": 49.9898, "jb_depth_ms": 60, "jb_played": 492, "jb_concealed": 13, "jb_late": 3, "jb_resyncs": 3, "ssrcs": 3, "jb_jump_dropped": 0, "rtcp_rr_received": 0, "peer_jitter_ms": 0, "peer_lost": 0}}
+  ]
+}

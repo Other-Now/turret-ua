@@ -1,0 +1,11 @@
+REFER sip:bob@10.0.0.2:5060 SIP/2.0
+Via: SIP/2.0/UDP 10.0.0.1:5060;branch=z9hG4bK4
+From: <sip:alice@10.0.0.1>;tag=a1
+To: <sip:bob@10.0.0.2>;tag=b1
+Call-ID: c1@10.0.0.1
+CSeq: 2 REFER
+Contact: <sip:alice@10.0.0.1:5060>
+Max-Forwards: 70
+Refer-To: <sip:carol@10.0.0.3>
+Content-Length: 0
+

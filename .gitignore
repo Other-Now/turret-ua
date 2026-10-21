@@ -1,0 +1,7 @@
+build*/
+*.pcap
+*.wav
+crash-*
+leak-*
+timeout-*
+.vscode/

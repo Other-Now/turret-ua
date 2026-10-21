@@ -1,0 +1,143 @@
+SIP/2.0 200 OK
+v: 2.0/UDP 10.0.0.1;branch=z8hG4REFERf: <sip:a@h5;tag=x
+t:Á <sip:b@hOK
+v:K1;
+f: <sig=sip:b@h>;tag=y
+i: c
+CSeq: 2 INVIIP/2.0 200 OK
+v: 2.0/ag=x
+t:Á <sip:b@hOK
+v:K1;
+f: <sig=sip:b@h>;tag=y
+i: c
+CSeq: 2 INVIIP/2.0 200 OK
+v: 2.0/
+f: <sip:a@h5;tag=x
+CSeq: p:b@hOK
+v: 4.ÿÿÿÿÿK1
+f: <ÿÿÿ
+f: <sig=x
+t: <:bg=yx
+t: <sip:b@h>;tag=y
+i: c
+CSeq: 1 INVIIP/2.0 200 OK
+r: 2.0/
+f: <sip:a@h5;tag=x
+t: <sip:b@hOK
+v: 2.ÿÿÿÿÿK1
+f: <ÿÿÿ
+f: <sig=x
+t: =sp:ig<by@h5;tag=x
+t:Á <sip:b@@h>;tag=y
+i: c
+CSeq: 1 INVIIP/2.0 200 OK
+v: 2.0/
+f:h5»tag=P/2.0 200 OK
+v: 2.0/
+f: <sip:a@h5;tag=x
+CSeq: p:b@hOK
+v: 4.ÿÿÿÿÿK1
+f: <ÿÿÿ
+f: <sig=x
+t: <sip:bg=yx
+t: <sip:b@h>;
+f: <sip:a@h5;tag=x
+CSeq: p:b@hOK
+v: 4.ÿÿÿÿÿK1
+f: <ÿÿÿ
+f: <sig=x
+t: <:bg=yx
+t: <sip:b@h>;tag=y
+i: c
+CSeq: 1 INVIIP/2.0 200 OK
+r: 2.0/
+f: <sip:a@h5;tag=x
+t: <sip:b@hOK
+v: 2.ÿÿÿÿÿK1
+f: <ÿÿÿ
+f: <sig=x
+t: <sip:bg=y@h5;tag=x
+t:Á <sip:b@@h>;tag=y
+i: c
+CSeq: 1 INVIIP/2.0 200 OK
+v: 2.0/
+f:h5»tag=P/2.0 200 OK
+v: 2.0/
+f: <sip:a@h5;tag=x
+CSeq: p:b@hOK
+v: 4.ÿÿÿÿÿK1
+f: <ÿÿÿ
+f: <sig=x
+t: <sip:bg=yx
+t: <sip:b@h>;tag=y
+i: c@hOK
+v: 2.ÿÿÿÿÿK1
+f: <ÿÿÿ
+f: <sig=x
+t: <sip:bg=y@h5;tag=x
+t:Á <sip:b@@h>;tag=y
+i: c
+CSeq: 1 INVIIP/2.0 200 OK
+v: 2.0/
+f: <sip:a@h5»tag=P/2.0 200 OK
+v: 2.0/
+f: <sip:a@h5;tag=x
+CSeq: p:b@hOK
+v: 4.ÿÿÿÿÿK1
+f: <ÿÿÿ
+f: <sig=x
+t: <sip:bg=yx
+t: <sip:b@h>;tag=y
+i: c
+CSeq: 1 INVIIP/2.0 200 OK
+r: 2.0/
+f: <sip:a@h5;tag=x
+t: <sip:b@hOK
+v: 2.ÿÿÿÿÿK1
+f: <ÿÿÿ
+f: <sig=x
+t: <sip:bg=y@h5;tag=x
+d:Á <sip:b@hOK
+v:K1;x
+CSeq: p:b@hOK
+v: 5.ÿÿÿÿÿK1
+f: <ÿÿÿ
+f: <sig=x
+t: <sip:bg=yxeq: p:b@hOK
+v: 5.ÿÿÿÿÿK1
+f: <ÿÿÿ
+f: <sig=x
+t: <sip:b
+t: <sip
+CSeq: 1 INVIIP/2.0 200 OK
+r: 2.0/
+f:ñ <sip:a@h5;tag=x
+t: <sip:b@hOK
+v: 2.ÿÿÿÿÿK1
+f: <ÿÿÿ
+f: <sig=x
+t: <sip:bg=y@h5;tag=x
+d:Á <sip:b@hOK
+v:K1;x
+CSeq: p:b@hOK
+v:0>;tag}b1
+Call-ID:bob@10.0.$0.0>;tag}b1
+Call-ID: c1@10.0.0.0'0.1
+CSeq: 2 INVITE
+Conta: =x
+CSeq: p:b@hOK
+v:97
+
+v=~ 5.ÿÿÿÿÿK1
+f: <ÿÿÿ
+f: <sig=x
+t: <sip:bg=yxeq: p:b@hOK
+v: 5.ÿÿÿÿÿK1
+f: <ÿÿÿ
+f: <sig=x
+t: <sip:b
+t: <sip:b@h>;tag
+i: c
+CSeq: 1ÿÿÿÿÿÿÿÿÿl: 0TE
+l: 0
+

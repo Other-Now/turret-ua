@@ -1,0 +1,120 @@
+name: ci
+on:
+  push:
+  pull_request:
+  workflow_dispatch:
+
+env:
+  DEBIAN_FRONTEND: noninteractive
+
+jobs:
+  build-test:
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/checkout@v4
+      - name: deps
+        run: |
+          sudo apt-get update -q
+          sudo apt-get install -y -q ninja-build libgtest-dev libgmock-dev qt6-declarative-dev \
+            qml6-module-qtquick qml6-module-qtquick-controls qml6-module-qtquick-layouts \
+            qml6-module-qtquick-window qml6-module-qtquick-templates qml6-module-qtqml-workerscript
+      - name: build
+        run: cmake -S . -B build -G Ninja -DCMAKE_BUILD_TYPE=RelWithDebInfo && cmake --build build
+      - name: unit + race + threaded tests (gtest/gmock)
+        run: ./build/unit_tests --gtest_brief=1 | tee unit_tests.txt
+      - name: Qt/QML tests (offscreen) + screenshot
+        env: { QT_QPA_PLATFORM: offscreen, QT_QUICK_BACKEND: software, TU_SCREENSHOT: gui.png }
+        run: ./build/gui_tests | tee gui_tests.txt
+      - name: jitter-buffer sweep (simulated, deterministic)
+        run: ./build/jb-sweep jb_sweep.csv | tee jb_sweep.md
+      - name: live impairment run (alice -> impair-relay -> bob)
+        run: bash scripts/impair_run.sh build impair 20
+      - uses: actions/upload-artifact@v4
+        with:
+          name: build-test
+          path: |
+            unit_tests.txt
+            gui_tests.txt
+            gui.png
+            jb_sweep.*
+            impair/impair.csv
+
+  tsan:
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/checkout@v4
+      - run: sudo apt-get update -q && sudo apt-get install -y -q ninja-build libgtest-dev libgmock-dev clang
+      - name: build (clang, ThreadSanitizer)
+        run: cmake -S . -B build -G Ninja -DTU_GUI=OFF -DTU_TSAN=ON -DCMAKE_CXX_COMPILER=clang++ && cmake --build build --target unit_tests
+      - name: run 3x
+        run: |
+          for i in 1 2 3; do
+            TSAN_OPTIONS="halt_on_error=1" ./build/unit_tests --gtest_brief=1 2>&1 | tee -a tsan.txt
+          done
+          echo "ThreadSanitizer warnings: $(grep -c 'WARNING: ThreadSanitizer' tsan.txt || true)" | tee -a tsan.txt
+      - uses: actions/upload-artifact@v4
+        with: { name: tsan, path: tsan.txt }
+
+  asan-ubsan:
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/checkout@v4
+      - run: sudo apt-get update -q && sudo apt-get install -y -q ninja-build libgtest-dev libgmock-dev
+      - run: cmake -S . -B build -G Ninja -DTU_GUI=OFF -DTU_ASAN=ON && cmake --build build --target unit_tests
+      - run: UBSAN_OPTIONS=halt_on_error=1 ./build/unit_tests --gtest_brief=1 2>&1 | tee asan.txt
+      - uses: actions/upload-artifact@v4
+        with: { name: asan, path: asan.txt }
+
+  fuzz:
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/checkout@v4
+      - run: sudo apt-get update -q && sudo apt-get install -y -q ninja-build clang
+      - run: cmake -S . -B build -G Ninja -DTU_GUI=OFF -DTU_TESTS=OFF -DTU_FUZZ=ON -DCMAKE_CXX_COMPILER=clang++ && cmake --build build
+      - name: regressions
+        run: ./build/fuzz_sip_parser fuzz/regressions/*
+      - name: fuzz 2 x 150 s
+        run: |
+          cp -r fuzz/corpus/sip c_sip; cp -r fuzz/corpus/ua c_ua
+          ./build/fuzz_sip_parser c_sip -dict=fuzz/sip.dict -max_total_time=150 -max_len=4096 -print_final_stats=1 2>&1 | tail -15 | tee fuzz.txt
+          ./build/fuzz_ua c_ua -dict=fuzz/sip.dict -max_total_time=150 -max_len=8192 -print_final_stats=1 2>&1 | tail -15 | tee -a fuzz.txt
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: fuzz
+          path: |
+            fuzz.txt
+            crash-*
+
+  interop:
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/checkout@v4
+      - name: deps (SIPp, tshark, tcpdump, Asterisk 20)
+        run: |
+          echo "wireshark-common wireshark-common/install-setuid boolean false" | sudo debconf-set-selections
+          sudo apt-get update -q
+          sudo apt-get install -y -q ninja-build sip-tester tshark tcpdump asterisk asterisk-modules
+          sudo systemctl stop asterisk || true
+          sudo pkill -x asterisk || true
+      - run: cmake -S . -B build -G Ninja -DTU_GUI=OFF -DTU_TESTS=OFF && cmake --build build
+      - name: SIPp interop (+ independent tcpdump capture of loopback)
+        run: |
+          sudo tcpdump -i lo -U -w lo_sipp.pcap udp > /dev/null 2>&1 &
+          sleep 1
+          CALLS=2000 RATE=200 bash scripts/sipp_interop.sh build sipp
+          sleep 1; sudo pkill tcpdump; sleep 1
+          echo "tcpdump lo: frames=$(tshark -r lo_sipp.pcap 2>/dev/null | wc -l) malformed_or_error=$(tshark -r lo_sipp.pcap -Y '_ws.malformed || _ws.expert.severity == error' 2>/dev/null | wc -l)" | tee -a sipp/sipp_summary.txt
+      - name: Asterisk 20 interop (REGISTER+digest, call, hold, REFER transfer)
+        run: bash scripts/asterisk_interop.sh build asterisk_out
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: interop
+          path: |
+            sipp/*.txt
+            sipp/*.json
+            sipp/*.log
+            asterisk_out/ast_*.json
+            asterisk_out/ast_*.log
+            asterisk_out/*.pcap

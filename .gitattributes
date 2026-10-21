@@ -1,0 +1,4 @@
+* text=auto eol=lf
+fuzz/corpus/** -text
+fuzz/regressions/** -text
+*.png binary

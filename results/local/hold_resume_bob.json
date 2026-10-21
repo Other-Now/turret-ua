@@ -1,0 +1,11 @@
+{
+  "user": "bob",
+  "calls_out": 0, "calls_in": 1, "connected": 1, "terminated": 1,
+  "illegal_transitions": 0,
+  "sent_491": 0, "got_491": 0, "sent_481": 0, "glare_retries": 0, "cancel_lost_race": 0, "transfers_done": 0, "auth_retries": 0,
+  "ok_retransmits": 0, "ack_resends": 0,
+  "sip_sent": 8, "sip_retransmits": 0, "sip_absorbed": 0, "sip_parse_errors": 0, "sip_timeouts": 0,
+  "calls": [
+    {"id": 1, "state": "Terminated", "rtp": {"sent": 201, "received": 300, "lost": 0, "jitter_ms": 0.72302, "max_jitter_ms": 4.16812, "jb_depth_ms": 60, "jb_played": 297, "jb_concealed": 0, "jb_late": 0, "jb_resyncs": 0, "rtcp_rr_received": 1, "peer_jitter_ms": 3.25, "peer_lost": 0}}
+  ]
+}

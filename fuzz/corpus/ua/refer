@@ -1,0 +1,43 @@
+INVITE sip:bob@10.0.0.2:5060 SIP/2.0
+Via: SIP/2.0/UDP 10.0.0.1:5060;branch=z9hG4bK1
+From: <sip:alice@10.0.0.1>;tag=a1
+To: <sip:bob@10.0.0.2>
+Call-ID: c1@10.0.0.1
+CSeq: 1 INVITE
+Contact: <sip:alice@10.0.0.1:5060>
+Max-Forwards: 70
+Content-Type: application/sdp
+Content-Length: 97
+
+v=0
+o=a 1 1 IN IP4 10.0.0.1
+s=-
+c=IN IP4 10.0.0.1
+t=0 0
+m=audio 4000 RTP/AVP 0
+a=sendrecv
+
+#
+REFER sip:bob@10.0.0.2:5060 SIP/2.0
+Via: SIP/2.0/UDP 10.0.0.1:5060;branch=z9hG4bK4
+From: <sip:alice@10.0.0.1>;tag=a1
+To: <sip:bob@10.0.0.2>;tag=b1
+Call-ID: c1@10.0.0.1
+CSeq: 2 REFER
+Contact: <sip:alice@10.0.0.1:5060>
+Max-Forwards: 70
+Refer-To: <sip:carol@10.0.0.3>
+Content-Length: 0
+
+
+#
+BYE sip:bob@10.0.0.2:5060 SIP/2.0
+Via: SIP/2.0/UDP 10.0.0.1:5060;branch=z9hG4bK3
+From: <sip:alice@10.0.0.1>;tag=a1
+To: <sip:bob@10.0.0.2>;tag=b1
+Call-ID: c1@10.0.0.1
+CSeq: 3 BYE
+Contact: <sip:alice@10.0.0.1:5060>
+Max-Forwards: 70
+Content-Length: 0
+

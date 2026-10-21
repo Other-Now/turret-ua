@@ -1,0 +1,20 @@
+turret-cli alice listening on 127.0.0.1:5070
+[    18 ms] register ok (200)
+[    36 ms] call 1 Calling      dialing
+[    97 ms] call 1 Ringing      ringing
+[   401 ms] call 1 Connected    answered
+[  2420 ms] call 1 OnHold       held
+[  4409 ms] call 1 Connected    resumed
+[  6871 ms] call 1 Transferring transferring to sip:carol@127.0.0.1:5060
+[  7742 ms] call 1 Terminated   transferred
+{
+  "user": "alice",
+  "calls_out": 1, "calls_in": 0, "connected": 1, "terminated": 1,
+  "illegal_transitions": 0,
+  "sent_491": 0, "got_491": 0, "sent_481": 0, "glare_retries": 0, "cancel_lost_race": 0, "transfers_done": 1, "auth_retries": 2,
+  "ok_retransmits": 0, "ack_resends": 0,
+  "sip_sent": 12, "sip_retransmits": 0, "sip_absorbed": 0, "sip_parse_errors": 0, "sip_timeouts": 0,
+  "calls": [
+    {"id": 1, "state": "Terminated", "rtp": {"sent": 367, "received": 345, "lost": 100, "jitter_ms": 16.4308, "max_jitter_ms": 42.8373, "jb_depth_ms": 60, "jb_played": 326, "jb_concealed": 10, "jb_late": 0, "jb_resyncs": 4, "ssrcs": 2, "jb_jump_dropped": 0, "rtcp_rr_received": 0, "peer_jitter_ms": 0, "peer_lost": 0}}
+  ]
+}

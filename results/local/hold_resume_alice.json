@@ -1,0 +1,11 @@
+{
+  "user": "alice",
+  "calls_out": 1, "calls_in": 0, "connected": 1, "terminated": 1,
+  "illegal_transitions": 0,
+  "sent_491": 0, "got_491": 0, "sent_481": 0, "glare_retries": 0, "cancel_lost_race": 0, "transfers_done": 0, "auth_retries": 0,
+  "ok_retransmits": 0, "ack_resends": 0,
+  "sip_sent": 4, "sip_retransmits": 0, "sip_absorbed": 0, "sip_parse_errors": 0, "sip_timeouts": 0,
+  "calls": [
+    {"id": 1, "state": "Terminated", "rtp": {"sent": 301, "received": 201, "lost": 0, "jitter_ms": 1.07556, "max_jitter_ms": 5.51144, "jb_depth_ms": 60, "jb_played": 198, "jb_concealed": 10, "jb_late": 0, "jb_resyncs": 1, "rtcp_rr_received": 1, "peer_jitter_ms": 2.75, "peer_lost": 0}}
+  ]
+}

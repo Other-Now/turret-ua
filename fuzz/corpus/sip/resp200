@@ -1,0 +1,8 @@
+SIP/2.0 200 OK
+v: SIP/2.0/UDP 10.0.0.1;branch=z9hG4bK1
+f: <sip:a@h>;tag=x
+t: <sip:b@h>;tag=y
+i: c
+CSeq: 1 INVITE
+l: 0
+

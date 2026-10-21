@@ -1,0 +1,13 @@
+NOTIFY sip:bob@20.0.0.2:5060 SIP/2.0
+Via: SIP/2.0/UDP 10.0.0.1:5060;branch=z9hG4bK5
+From: <sip:alice@10.0.0.1>;tag½a1
+To: <sip:bob@10.0.0.2>;tag=b1
+Call-ID: c1@10.0.0.1
+CSeq: 3 NOTIFY
+Contact:
+ 10.0.0.1:5060;branch=z9hG4bK5
+From: <sip:alice@10.0.0.1>;tag½a1
+To: <sip:bob@10.0.0.2>;tag=b1
+Call-ID: c1@10.0.0.1
+CSentent-Length: 0
+
