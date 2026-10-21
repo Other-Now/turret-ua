@@ -1,0 +1,13 @@
+Running main() from ./googletest/src/gtest_main.cc
+    chaos: 300/300 runs were connected at hangup time
+[==========] 69 tests from 12 test suites ran. (2436 ms total)
+[  PASSED  ] 69 tests.
+Running main() from ./googletest/src/gtest_main.cc
+    chaos: 300/300 runs were connected at hangup time
+[==========] 69 tests from 12 test suites ran. (2425 ms total)
+[  PASSED  ] 69 tests.
+Running main() from ./googletest/src/gtest_main.cc
+    chaos: 300/300 runs were connected at hangup time
+[==========] 69 tests from 12 test suites ran. (2463 ms total)
+[  PASSED  ] 69 tests.
+ThreadSanitizer warnings: 0

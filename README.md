@@ -34,17 +34,18 @@ on hold.*
 |---|---|
 | Unit, race and threaded tests (gtest/gmock) | **69/69**. Includes 300-seed random-loss chaos and 200-seed glare runs: 0 illegal state transitions |
 | Qt/QML tests (offscreen) | 2/2. The model follows a real call through hold/resume/hangup; Main.qml loads with 0 warnings |
-| ThreadSanitizer (clang 20) | 3 runs x 63 tests, **0 warnings**. 3 threads, real UDP |
-| ASan + UBSan | 63/63, 0 reports |
-| SIPp interop | **6/6 scenarios**: 500 calls at 50 cps with 0 failures; hold/resume SDP checked by SIPp; 491 back-off measured at 3.0-3.2 s (RFC window 2.1-4.0 s); REFER/NOTIFY checked by SIPp; RTP echoed with 0 loss |
-| Asterisk 20.6 interop | **6/6 checks**: REGISTER + INVITE digest auth, call through the PBX, hold/resume, blind transfer via Asterisk's REFER handling, RTP relayed by Asterisk |
-| tshark | **0 malformed/expert-error frames** across every capture |
+| ThreadSanitizer (clang) | CI: 3 runs x 69 tests, **0 warnings**. 3 threads, real UDP |
+| ASan + UBSan | 69/69, 0 reports |
+| SIPp interop | **6/6 scenarios**: **2,000 calls at 200 cps, 0 failed**; hold/resume SDP checked by SIPp; 491 back-off measured at 3,031 ms (RFC window 2,100-4,000); REFER/NOTIFY checked by SIPp; RTP echoed with 0 loss |
+| Asterisk 20.6 interop | **6/6 checks**: REGISTER + INVITE digest auth, call through the PBX, hold/resume, blind transfer via Asterisk's REFER handling, RTP relayed by Asterisk (295/299 played, 0 late) |
+| tshark | **0 malformed/expert-error frames**: every app capture, plus a real `tcpdump -i lo` of the CI interop run (14,399 frames) |
 | RFC 3550 jitter vs Wireshark | 5.511 ms (ours) vs 5.517 ms (Wireshark), same stream, computed independently |
-| libFuzzer | parser: **3 bugs found and fixed**; whole-UA fuzzer: 213k runs, 0 findings |
+| libFuzzer | parser: **3 bugs found and fixed**, then 6.8M clean executions; whole-UA fuzzer: 2.5M executions, 0 findings |
 
-CI repeats all of this on GitHub Actions, see `.github/workflows/ci.yml`.
-Timing numbers from CI are in `results/ci/`. The local box was shared with
-an LLVM build, so local timing numbers are indicative only.
+Numbers are from GitHub Actions run 39601194884, all 5 jobs green; see
+[results/ci/SUMMARY.md](results/ci/SUMMARY.md). Local WSL numbers are in
+`results/local/`. That box was shared with an LLVM build, so quote CI numbers
+for anything timing-related.
 
 ## Seven bugs the tests found
 

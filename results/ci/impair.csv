@@ -1,0 +1,4 @@
+sigma_ms,loss_injected,relay_dropped,rx,lost_rfc3550,jitter_ms,max_jitter_ms,jb_depth,jb_late,jb_concealed,jb_played
+0,0.01,9,990,9,0.81,0.90,60,0,9,988
+10,0.01,9,990,9,8.32,11.01,60,0,9,987
+25,0.01,9,989,8,21.97,26.60,60,3,11,984

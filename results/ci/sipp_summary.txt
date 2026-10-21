@@ -1,0 +1,11 @@
+PASS uac_load calls=2000 rate=200cps sipp_ok=2000 sipp_failed=0 turret_connected=2000 illegal=0 wall=10.5s
+PASS uas_basic state=Terminated
+PASS uas_hold sdp sendonly/sendrecv checked by SIPp; rtp(echoed)={'sent': 176, 'received': 175, 'lost': 0, 'jitter_ms': 0.5006, 'max_jitter_ms': 0.632402, 'jb_depth_ms': 60, 'jb_played': 172, 'jb_concealed': 0, 'jb_late': 0, 'jb_resyncs': 0, 'ssrcs': 1, 'jb_jump_dropped': 0, 'rtcp_rr_received': 0, 'peer_jitter_ms': 0, 'peer_lost': 0}
+PASS uas_491 got_491=1 retry_gap_ms=3031 (RFC window 2100-4000)
+PASS uac_refer 202 + NOTIFY 100/200 checked by SIPp; carol connected=1
+tshark glare.pcap frames=11 malformed_or_error=0
+tshark hold.pcap frames=363 malformed_or_error=0
+tshark refer.pcap frames=18 malformed_or_error=0
+PASS tshark 0 malformed/error frames in all captures
+== 6 passed, 0 failed
+tcpdump lo: frames=14399 malformed_or_error=0

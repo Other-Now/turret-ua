@@ -132,13 +132,13 @@ a=sendrecv | sendonly | recvonly | inactive
   every test asserts the count is 0. Terminated -> anything is illegal, so
   "a late 200 resurrected the call" bugs become a failing assertion.
 - **TSan scope.** `tests/test_threaded.cpp` drives two UAs on two loop threads
-  from a third "UI" thread over real UDP. Under clang 20 TSan: 3 runs x 63 tests,
-  0 warnings. Note that GCC 13's TSan runtime crashed in its own allocator on
+  from a third "UI" thread over real UDP. Under clang TSan: 3 runs x 69 tests,
+  0 warnings (CI run 39601194884; also clean locally with clang 20). Note that GCC 13's TSan runtime crashed in its own allocator on
   this WSL kernel (it needs `setarch -R` for the ASLR layout, then SEGVs). The
   same tests are clean under ASan+UBSan and clang TSan, so it's a toolchain
   issue, not a race. CI runs clang TSan.
-- **Scaling.** One loop handles this load: SIPp pushed 500 calls at 50 cps with
-  0 failures on a loaded laptop. The next step is N loops with calls sharded by
+- **Scaling.** One loop handles this load: SIPp pushed 2,000 calls at 200 cps
+  with 0 failures in CI (500 at 50 cps on the loaded laptop). The next step is N loops with calls sharded by
   hash(Call-ID), still one owner per call, still no locks in the state machine.
 
 ---
@@ -240,7 +240,8 @@ and that serialising is a fixed point. That check found three bugs:
 All three inputs are in `fuzz/regressions/` and CI replays them. The UA-level
 fuzzer (`fuzz_ua`) feeds datagram sequences into a whole UserAgent and checks
 for no crash, no illegal transition, and nothing leaked after the timers run
-out. 213k runs (5 minutes) found nothing.
+out. 2.5M runs found nothing. After the three fixes, the parser fuzzer ran 6.8M
+clean executions (10 minutes locally plus 150 s in CI).
 
 ### Jitter-buffer depth vs RFC 3550 J (bench/jb_sweep, deterministic)
 
